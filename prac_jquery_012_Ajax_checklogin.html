@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script>
+        function checkLogin(){
+
+            var uid = $(".uid").val()
+
+            if(uid.split(" ").join("")==""){
+                alert("아이디가 비어있으면 안됩니다.")
+                $(".uid").val("");
+                $(".uid").focus();
+                return;
+            }
+
+            var pwd = $(".pwd").val()
+
+            if(pwd.split(" ").join("")==""){
+                alert("패스워드가 비어있으면 안됩니다.")
+                $(".pwd").val("");
+                $(".pwd").focus();
+                return;
+            }
+
+            $.ajax({
+
+                url : "main.html"
+                ,type : "get"
+                ,data : {".uid":uid, ".pwd":pwd}
+                ,success : function(responseHTML){
+
+                    var obj = $(responseHTML);
+
+                    var idCnt = $(responseHTML).filter(".idCnt").text();
+
+                    if(idCnt==1){
+                        alert("로그인 성공!")
+                        location.replace("main.html")
+                    }else{
+                        alert("로그인 실패!")
+                        $(".uid").val("")
+                        $(".pwd").val("")
+                    }
+
+                }
+                ,error : function(){
+
+                    alert("웹서버 통신간 에러 발생 관리자에게 문의 바람")
+                }
+
+
+
+            });
+
+        }
+
+
+    </script>
+</head>
+<body><center>
+    
+    <form name="loginForm" action=''>
+        
+        <table border="1" cellpadding=5 cellspacing=0>
+            회원가입<br><br>
+            <tr><td>아이디<td><input type="text" name="uid" class="uid">
+            <tr><td>패스워드<td><input type="password" name="pwd" class="pwd">    
+        </table>
+        <br><br>
+        <input type="button" value="로그인" onclick="checkLogin()">
+    </form>
+</body>
+</html>

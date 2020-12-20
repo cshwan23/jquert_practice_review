@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script>
+        function verticalMove(tableObj){
+
+            var firstTr = tableObj.find("tr").eq(0)
+            var lastTr = tableObj.find("tr").last()
+
+            lastTr.after(firstTr.clone())
+            firstTr.remove();
+        }
+        function horizentalMove(tableObj){
+
+            var firstTr = tableObj.find("tr td").eq(0)
+            var lastTr = tableObj.find("tr td").last()
+
+            lastTr.after(firstTr.clone())
+            firstTr.remove();
+        }
+
+        function vert_hori_Move(tableObj){
+
+            var firstTr = tableObj.find("tr:eq(0) td").eq(0)
+            var lastTr = tableObj.find("tr:eq(2) td").last()
+
+            lastTr.after(firstTr.clone())
+            firstTr.remove();
+
+            var firstTr = tableObj.find("tr:eq(1) td").eq(0)
+            var lastTr = tableObj.find("tr:eq(0) td").last()
+
+            lastTr.after(firstTr.clone())
+            firstTr.remove();
+
+            var firstTr = tableObj.find("tr:eq(2) td").eq(0)
+            var lastTr = tableObj.find("tr:eq(1) td").last()
+
+            lastTr.after(firstTr.clone())
+            firstTr.remove();
+
+
+
+        }
+    
+
+        $(document).ready(function(){
+
+
+            setInterval(function(){
+
+                verticalMove($(".animation1"))
+                horizentalMove($(".animation2"))
+                vert_hori_Move($(".animation3"))
+                
+            },1000*0.5 )
+
+
+        });
+
+
+
+    </script>
+</head>
+<body><center>
+    <table border="0" cellpadding=10 cellspacing=0 style="border-collapse: collapse;" class="animation1">
+        <tr><td bgcolor="red">피카츄
+        <tr><td bgcolor="yellow">도라에몽
+        <tr><td bgcolor="green">짱구
+        <tr><td bgcolor="orange">보노보노
+    </table><br><br>
+    <table border="0" cellpadding=10 cellspacing=0 style="border-collapse: collapse;" class="animation2">
+        <tr><td bgcolor="red">피카츄<td bgcolor="yellow">도라에몽<td bgcolor="green">짱구<td bgcolor="orange">보노보노
+       
+    </table><br><br>
+    <table border="0" cellpadding=10 cellspacing=0 style="border-collapse: collapse;" class="animation3">
+        <tr><td bgcolor="red">피카츄<td bgcolor="yellow">도라에몽<td bgcolor="purple">짱구
+       <tr><td bgcolor="orange">보노보노<td bgcolor="pink">에띠<td bgcolor="skyblue">고무고무
+       <tr><td bgcolor="gray">딱세판까지만<td bgcolor="hotpink">뿌뷰뷰<td bgcolor="lightbrown">뿌엥이
+    </table>
+    
+</body>
+</html>

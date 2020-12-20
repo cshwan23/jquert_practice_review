@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<script src='jquery-1.11.0.min.js'></script>
+<script>
+
+    function bgcolor_tr(trObj, oddBgcolor, evenBgcolor){
+
+        trObj.filter(":visible").filter(":even").css({"background-color":oddBgcolor});
+        trObj.filter(":visible").filter(":odd").css({"background-color":evenBgcolor});
+
+
+
+    }
+
+    $(document).ready(function(){
+
+        var obj = $(".sungjuk");
+
+        obj.find("thead tr").css({"background-color" : "#99c5ff"})
+
+        bgcolor_tr(obj.find("tbody tr"),"white","pink")
+
+        $(".count").text(obj.find("tbody tr").length +"개");
+
+
+        $(".search").click(function(){
+
+            var keyword1 = $(".keyword1").val()
+            
+            // 공백으로만 있으면 안돼.
+            if(keyword1.split(" ").join("")==""){
+                
+                
+                alert("공백 있으면 안됨")
+                $(".keyword1").val("")
+                return;
+            }
+
+            keyword1= $.trim(keyword1);
+
+            keyword1 = keyword1.toUpperCase();
+
+            var trs = obj.find("tbody tr");
+
+            trs.hide()
+            
+
+            var cnt = 0;
+            trs.each(function(i){
+
+
+                var tri = $(this);
+                
+                var tr0 = tri.find("td").eq(0).text().toUpperCase();
+                var tr1 = tri.find("td").eq(1).text().toUpperCase();
+                var tr2 = tri.find("td").eq(2).text().toUpperCase();
+
+                if( (tr0.indexOf(keyword1)>=0)||
+                    (tr1.indexOf(keyword1)>=0)||
+                    (tr2.indexOf(keyword1)>=0)){
+
+                    tri.show();
+                
+                    cnt++
+                }  
+                bgcolor_tr(trs,"white","pink")
+            })
+
+
+            $(".count").text(cnt+"개");
+        });
+        $(".allSearch").click(function(){
+            obj.find("tbody tr").show();
+            bgcolor_tr(obj.find("tbody tr"),"white","pink")
+
+            var trs = obj.find("tbody tr")
+            $(".count").text(trs.length+"개");
+        });
+    })
+
+</script>
+</head>
+<body><center>
+
+    키워드 : <input type="text" name="keyword1" class="keyword1">
+           <input type="button" value="검색" class="search">
+           <input type="button" value="모두 검색" class="allSearch"><br><br>
+           <div class="count"></div>
+
+    <table border="2" cellpadding="5" class="sungjuk" cellspacing=0 style="border-collapse: collapse;">
+
+        <thead>
+            <tr><th>번호<th>이름<th>평균
+        </thead>
+
+        <tbody align="center">
+            <tr><td>101<td>John<td>87
+            <tr><td>102<td>KimYeongjin<td>90
+            <tr><td>103<td>JeongYeongwoo<td>85
+            <tr><td>104<td>ParkMooun<td>92
+            <tr><td>105<td>Handonghee<td>65
+            <tr><td>106<td>KwonPanjun<td>83
+            <tr><td>107<td>WooChoonsik<td>95
+            <tr><td>108<td>HongGyujin<td>42
+            <tr><td>109<td>JiSanghwa<td>54
+            <tr><td>110<td>JeongGyeongsu<td>17
+            <tr><td>111<td>ChoiSeungyong<td>59
+            <tr><td>112<td>JeongJiwoong<td>48
+            <tr><td>113<td>JeonJaeho<td>39
+            <tr><td>114<td>KimYeongtak<td>82
+            <tr><td>115<td>ChoiSeungmin<td>39
+            <tr><td>116<td>WooMingu<td>42
+            <tr><td>117<td>KimJonghyeok<td>82
+            <tr><td>118<td>아이린<td>99
+        </tbody>
+
+    </table>
+    
+</body>
+</html>
